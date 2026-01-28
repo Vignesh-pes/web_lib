@@ -1,5 +1,4 @@
 <h2>Admin Dashboard</h2>
-<p>Welcome {{user}}</p>
 
-<a href="{{url_for('admin.view_books')}}">View Books</a>
-<a href="{{url_for('auth.logout')}}">logout</a>
+<a href="{{ url_for('admin.books') }}">View Books</a> |
+<a href="{{ url_for('auth.logout') }}">Logout</a>

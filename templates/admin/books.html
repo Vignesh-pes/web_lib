@@ -1,6 +1,6 @@
 <h2>All Books</h2>
 
-<form method="post" action="{{ url_for('admin.add_book') }}">
+<form method="post">
     <input name="title" placeholder="Book Title" required>
     <input name="author" placeholder="Author" required>
     <button type="submit">Add Book</button>
@@ -24,3 +24,6 @@
 {% else %}
 <p>No books found.</p>
 {% endif %}
+
+<br>
+<a href="{{ url_for('admin.dashboard') }}">Back</a>
