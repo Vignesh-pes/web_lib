@@ -1,3 +1,4 @@
+import bcrypt
 import sqlite3
 
 DB_NAME = "library.db"
@@ -13,6 +14,7 @@ def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
 
+    # Create tables
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS users (
@@ -45,6 +47,22 @@ def init_db():
         )
     """
     )
+
+    # ✅ Seed users (ONLY if not exists)
+    users = [
+        ("admin", "admin123", "admin"),
+        ("india", "india123", "member"),
+    ]
+
+    for username, password, role in users:
+        hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        cursor.execute(
+            """
+            INSERT OR IGNORE INTO users (username, password, role)
+            VALUES (?, ?, ?)
+            """,
+            (username, hashed_pw, role),
+        )
 
     conn.commit()
     conn.close()
